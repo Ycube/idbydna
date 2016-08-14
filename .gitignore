@@ -1,0 +1,13 @@
+/node_modules
+bundle.js
+npm-debug.log
+
+# IntelliJ
+*.iml
+/.idea
+
+/data
+dnaDB
+/docs
+dnaDB.DB
+/vendor
