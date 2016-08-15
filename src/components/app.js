@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
 
-import Organisms from './OrganismIndex';
+import OrganismsForm from './OrganismsForm';
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <div>React simple starter</div>
-        <div> <Organisms /> </div>
+        <div> <OrganismsForm /> </div>
       </div>
     );
   }
