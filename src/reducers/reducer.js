@@ -1,7 +1,7 @@
 import { FETCH_ORGANISMS } from '../actions';
 
 const initialState = {
-
+  virus: ''
 };
 
 export default function(state = initialState, action){
