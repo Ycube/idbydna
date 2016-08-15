@@ -11,7 +11,7 @@
     "php": "php server/server.php",
     "sql": "php server/sqlite.php",
     "apache": "apachectl start",
-    "server": "nodemon server/server.js",
+    "server": "nodemon server/server.js --exec babel-node --presets es2015",
     "build": "webpack webpack.config.js"
   },
   "author": "",
@@ -33,6 +33,7 @@
   "dependencies": {
     "axios": "^0.13.1",
     "babel-preset-stage-1": "^6.1.18",
+    "cors": "^2.7.1",
     "express": "^4.14.0",
     "lodash": "^3.10.1",
     "react": "^0.14.3",
@@ -40,6 +41,7 @@
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
     "redux": "^3.0.4",
-    "redux-promise": "^0.5.3"
+    "redux-promise": "^0.5.3",
+    "sqlite3": "^3.1.4"
   }
 }
