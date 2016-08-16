@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 
-import OrganismsForm from './OrganismsForm';
+import OrganismsForm from './OrganismsForm'
 
 export default class App extends Component {
   render() {

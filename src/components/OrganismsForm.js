@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import axios from 'axios';
 import Select from 'react-select';
 import { fetchOrganisms, fetchData } from '../actions/index'
+import DisplayWindow from './DisplayWindow'
 
 export class Organisms extends Component {
   constructor(props) {
@@ -31,6 +32,10 @@ export class Organisms extends Component {
     formSubmitEvent.preventDefault()
 
     this.props.fetchData(this.state)
+      .then( (data) => {
+        this.setState({ results: data.payload.data })
+        }
+      )
   }
 
   render() {
@@ -77,6 +82,8 @@ export class Organisms extends Component {
             <button className="btn btn-default" type="submit">Save</button>
 
         </form>
+        
+        <div> <DisplayWindow props={this.state} /> </div>
 
       </div>
     );

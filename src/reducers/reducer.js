@@ -1,8 +1,7 @@
-import { FETCH_ORGANISMS,FETCH_DATA } from '../actions';
+import { FETCH_ORGANISMS, FETCH_DATA } from '../actions';
 
 const initialState = {
-  virus: ''
-};
+}
 
 export default function(state = initialState, action){
   switch (action.type) {

@@ -11,3 +11,5 @@ dnaDB
 /docs
 dnaDB.DB
 /vendor
+
+server/sqlQueries.sql

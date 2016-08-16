@@ -1,3 +1,5 @@
+import Promise from 'bluebird'
+
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('dnaDB')
 
@@ -55,7 +57,6 @@ export default function(router) {
           data.forEach((el) => { 
             query = `SELECT Sample_ID, Test_Name, Test_Month, Test_Year from testResults where ${el.Test_Result}="${option}"`
             testResultsQuery.push(query) 
-            console.log(testResultsQuery)
           })
           db.serialize( () => {
             let result = []
@@ -69,7 +70,9 @@ export default function(router) {
                 }
               })
             })
-            res.send(result);
+            console.log("RESULT: ",result)
+            //TODO: refactor to promise
+            setTimeout(() => {res.send(result)}, 1000);
           })
         }
        })
