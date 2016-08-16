@@ -19,7 +19,7 @@ export function fetchOrganisms() {
 }
 
 export function fetchData(params) {
-  
+  console.log('Params: ', params)
   const url = `${rootURL}/${params.virus}/${params.option}` 
   const request = axios.get(url);
 

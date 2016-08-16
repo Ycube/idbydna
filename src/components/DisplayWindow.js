@@ -1,7 +1,7 @@
 import React from 'react'
 
 const DisplayWindow = (props) => {
- 
+
   const virus = props.props.virus
   const option = props.props.option
   const results = props.props.results
@@ -32,11 +32,10 @@ const DisplayWindow = (props) => {
 
   }
 
+  //no data comes back
   if (result.length === 0) {
     return (
       <div>
-        Select new Virus or Options
-        <br />
         <span>{virus}</span>
           <br />
         <span>{option}</span>

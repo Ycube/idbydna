@@ -79,8 +79,7 @@ export class Organisms extends Component {
             /> 
             <label>Negative</label>
 
-            <button className="btn btn-default" type="submit">Save</button>
-
+            <button className="btn btn-default" type="submit">Submit</button>
         </form>
         
         <div> <DisplayWindow props={this.state} /> </div>

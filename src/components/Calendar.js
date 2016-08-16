@@ -10,8 +10,9 @@ import DatePicker from 'rc-calendar/lib/Picker';
 
 import { fetchOrganisms, fetchData } from '../actions/index'
 import OrganismsForm from './OrganismsForm'
+import DisplayWindow from './DisplayWindow'
 
-const format = 'YYYY-MM';
+const format = 'MM-YYYY';
 const now = moment()
 now.locale('en-gb').utcOffset(0)
 const defaultCalendarValue = now.clone()
@@ -30,73 +31,89 @@ export class CalendarPicker extends Component {
     this.onChangeEnd = this.onChangeEnd.bind(this)
   }
 
-  onChangeStart(startValue) {
-    console.log(`DatePicker change: ${startValue && startValue.format(format)}`)
+  onChangeStart(value) {
+    console.log(`DatePicker change: ${value && value.format(format)}`)
+    const test = `${value && value.format(format)}`;
     this.setState({
-      startValue
+      startValue : test
     })
+    console.log('TEST: ', test)
+    console.log('STATE: ', this.state)
   }
   
-  onChangeEnd(endValue) {
-    console.log(`DatePicker change: ${endValue && endValue.format(format)}`)
+  onChangeEnd(value) {
+    console.log(`DatePicker change: ${value && value.format(format)}`)
     this.setState({
-      endValue
+      endValue : value
     })
   }
   render() {
     const state = this.state;
     const calendar = (<MonthCalendar
       locale={enUS}
-      // style={{ zIndex: 1000 }}
+      style={{ zIndex: 1000 }}
     />);   
     return (
-      <div style={{ width: 240, margin: 20 }}>
-        <OrganismsForm />
-        <div style={{
-          boxSizing: 'border-box',
-          position: 'relative',
-          display: 'block',
-          lineHeight: 1.5,
-          marginBottom: 22,
-        }}>
-          <DatePicker
-            animation="slide-up"
-            calendar={calendar}
-            value={state.startValue}
-            onChange={this.onChangeStart}
-          >
-            {
-              ({ value }) => {
-                return (<input
-                  style={{ width: 200 }}
-                  readOnly
-                  value={value && value.format(format)}
-                  placeholder="Start Date"
-                />)
-              }
-            }
-          </DatePicker>
 
-          <DatePicker
-            animation="slide-up"
-            calendar={calendar}
-            value={state.endValue}
-            onChange={this.onChangeEnd}
-          >
-            {
-              ({ value }) => {
-                return (<input
-                  style={{ width: 200 }}
-                  readOnly
-                  value={value && value.format(format)}
-                  placeholder="End Date"
-                />)
-              }
-            }
+      <div>   
+        <h2> Calendar "Page" </h2>
+        <div>
 
-          </DatePicker>
+
+          {/*Calendar*/}
+          <div className='col md-4' style={{
+            boxSizing: 'border-box',
+            position: 'relative',
+            display: 'block',
+            lineHeight: 1.5,
+            marginBottom: 22,
+          }}>
+            <DatePicker
+              animation="slide-up"
+              calendar={calendar}
+              value={state.startValue}
+              onChange={this.onChangeStart}
+            >
+              {
+                ({ value }) => {
+                  return (<input
+                    style={{ width: 200 }}
+                    readOnly
+                    value={value && value.format(format)}
+                    placeholder="Start Date"
+                  />)
+                }
+              }
+            </DatePicker>
+
+            <DatePicker
+              animation="slide-up"
+              calendar={calendar}
+              value={state.endValue}
+              onChange={this.onChangeEnd}
+            >
+              {
+                ({ value }) => {
+                  return (<input
+                    style={{ width: 200 }}
+                    readOnly
+                    value={value && value.format(format)}
+                    placeholder="End Date"
+                  />)
+                }
+              }
+
+            </DatePicker>
+          </div>
+
+          <div className='col md-8'>     
+            <OrganismsForm />
+          </div>
+
         </div>
-    </div>
+
+        <DisplayWindow props={this.state} />
+      </div>
     )
   }
 
