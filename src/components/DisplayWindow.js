@@ -64,7 +64,6 @@ const DisplayWindow = (props) => {
         </tbody>
       </table>
 
-            
     </div>
   )
 }
