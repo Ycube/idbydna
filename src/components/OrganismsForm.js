@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import axios from 'axios';
 import Select from 'react-select';
-import { fetchOrganisms } from '../actions/index'
+import { fetchOrganisms, fetchData } from '../actions/index'
 
 export class Organisms extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { virus: '', option: 'Positive' }
+    this.state = { virus: '', option: '' }
   }
 
   componentWillMount(){
@@ -30,11 +30,11 @@ export class Organisms extends Component {
   handleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault()
 
-    console.log('You have selected:', this.state)
+    this.props.fetchData(this.state)
   }
 
   render() {
-    console.log('PROPS: ',this.props)
+    // console.log('PROPS: ',this.props)
 
     const virus = (obj) => {
       var storage = [];
@@ -47,9 +47,7 @@ export class Organisms extends Component {
     }
     
     let virusArr = virus(this.props.organisms)
-    const clicked = () => {
-      console.log('clicked')
-    }
+    
     return(
       <div>
         <form onSubmit={this.handleFormSubmit.bind(this)}>
@@ -61,18 +59,18 @@ export class Organisms extends Component {
           
             <input 
               type="radio"
-              value="positive"
-              checked={this.state.option === "positive"}
-              onChange={this.handleOptionChange.bind(this, 'positive')}
+              value="Positive"
+              checked={this.state.option === "Positive"}
+              onChange={this.handleOptionChange.bind(this, 'Positive')}
             /> 
             <label>Positive</label>
           
 
             <input 
               type="radio"
-              value="negative"
-              checked={this.state.option === "negative"}
-              onChange={this.handleOptionChange.bind(this, 'negative')}
+              value="Negative"
+              checked={this.state.option === "Negative"}
+              onChange={this.handleOptionChange.bind(this, 'Negative')}
             /> 
             <label>Negative</label>
 
@@ -91,7 +89,7 @@ function mapStateToProps({ organisms }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchOrganisms }, dispatch)
+  return bindActionCreators({ fetchOrganisms,fetchData }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Organisms)
