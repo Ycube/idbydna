@@ -1,8 +1,8 @@
-## Project Title
+## IDbyDNA
 
 ### Setup
 - npm install
-- import tables into sqlite3
+- import tables into sqlite3 using correct .mode
 - point to your database inside server/sqlite.js
 
 ### Start
@@ -11,5 +11,4 @@
 
 
 ### Todo
-- Calendar and Calendare Redux
-- Implement React Router
+- Calendar backend routes
