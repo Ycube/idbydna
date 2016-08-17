@@ -7,9 +7,8 @@ import moment from 'moment';
 import enUS from 'rc-calendar/lib/locale/en_US';
 import MonthCalendar from 'rc-calendar/lib/MonthCalendar';
 import DatePicker from 'rc-calendar/lib/Picker';
-// import 'rc-calendar/assets/index.css';
 
-import { fetchOrganisms, fetchData } from '../actions/index'
+import { fetchCalendar } from '../actions/index'
 import OrganismsForm from './OrganismsForm'
 import DisplayWindow from './DisplayWindow'
 
@@ -25,23 +24,39 @@ export class CalendarPicker extends Component {
 
     this.state = { 
       startValue: null,
-      endValue: null
+      endValue: null,
+      option : ''
     }
     this.onChange = this.onChange.bind(this);
+    // this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   onChange(modifier) {
     return (value) => {
-      // console.log(`DatePicker change: ${value && value.format(format)}`);
       this.setState({
         [modifier]: value
       });
     }
   }
 
+  handleOptionChange(changeEvent) {
+    this.setState({
+      option: changeEvent
+    })
+  }
+
+  // handleFormSubmit(event) {
+  //   event.preventDefault()
+
+  //   this.props.fetchCalendar(this.state)
+  //     .then( (data) => {
+  //       this.setState({ results: data.payload.data })
+  //       }
+  //     )
+  // }
+
   render() {
     const state = this.state;
-
     const calendar = (<MonthCalendar
       locale={enUS}
       style={{ zIndex: 1000 }}
@@ -50,60 +65,80 @@ export class CalendarPicker extends Component {
 
       <div>   
         <h2> Calendar "Page" </h2>
-        <div>
+        <form>
+        {/*<form onSubmit={this.handleFormSubmit(this)}>*/}
+          <div>
 
 
-          {/*Calendar*/}
-          <div className='col md-4' style={{
-            boxSizing: 'border-box',
-            position: 'relative',
-            display: 'block',
-            lineHeight: 1.5,
-            marginBottom: 22,
-          }}>
-            <DatePicker
-              animation="slide-up"
-              calendar={calendar}
-              value={state.startValue}
-              onChange={this.onChange('startValue')}
-            >
-              {
-                ({ value }) => {
-                  return (<input
-                    style={{ width: 200 }}
-                    readOnly
-                    value={value && value.format(format)}
-                    placeholder="Start Date"
-                  />)
+            {/*Calendar*/}
+            <div className='col md-4' style={{
+              boxSizing: 'border-box',
+              position: 'relative',
+              display: 'block',
+              lineHeight: 1.5,
+              marginBottom: 22,
+            }}>
+              <DatePicker
+                animation="slide-up"
+                calendar={calendar}
+                value={state.startValue}
+                onChange={this.onChange('startValue')}
+              >
+                {
+                  ({ value }) => {
+                    return (<input
+                      style={{ width: 200 }}
+                      readOnly
+                      value={value && value.format(format)}
+                      placeholder="Start Date"
+                    />)
+                  }
                 }
-              }
-            </DatePicker>
+              </DatePicker>
 
-            <DatePicker
-              animation="slide-up"
-              calendar={calendar}
-              value={state.endValue}
-              onChange={this.onChange('endValue')}
-            >
-              {
-                ({ value }) => {
-                  return (<input
-                    style={{ width: 200 }}
-                    readOnly
-                    value={value && value.format(format)}
-                    placeholder="End Date"
-                  />)
+              <DatePicker
+                animation="slide-up"
+                calendar={calendar}
+                value={state.endValue}
+                onChange={this.onChange('endValue')}
+              >
+                {
+                  ({ value }) => {
+                    return (<input
+                      style={{ width: 200 }}
+                      readOnly
+                      value={value && value.format(format)}
+                      placeholder="End Date"
+                    />)
+                  }
                 }
-              }
 
-            </DatePicker>
+              </DatePicker>
+            </div>
+
+            <input 
+                type="radio"
+                value="Positive"
+                id="Positive"
+                checked={this.state.option === "Positive"}
+                onChange={this.handleOptionChange.bind(this, 'Positive')}
+              />
+              <label htmlFor="Positive">Positive</label>
+           
+              <input 
+                type="radio"
+                value="Negative"
+                id="Negative"
+                checked={this.state.option === "Negative"}
+                onChange={this.handleOptionChange.bind(this, 'Negative')}
+              /> 
+              <label htmlFor="Negative">Negative</label>
+
           </div>
 
-          <div className='col md-8'>     
-            <OrganismsForm />
-          </div>
+          <button className="btn btn-default" type="submit">Submit</button>
+        </form>
 
-        </div>
 
         <DisplayWindow props={this.state} />
       </div>
@@ -117,7 +152,7 @@ function mapStateToProps({ calendar }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchOrganisms,fetchData }, dispatch)
+  return bindActionCreators({ fetchCalendar }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarPicker)

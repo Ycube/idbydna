@@ -1,10 +1,11 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const rootURL = 'http://localhost:3333/api';
+const rootURL = 'http://localhost:3333/api'
 
 
-export const FETCH_ORGANISMS = 'FETCH_ORGANISMS';
-export const FETCH_DATA = 'FETCH_DATA';
+export const FETCH_ORGANISMS = 'FETCH_ORGANISMS'
+export const FETCH_DATA = 'FETCH_DATA'
+export const FETCH_CALENDAR = 'FETCH_CALENDAR'
 
 
 export function fetchOrganisms() {
@@ -19,12 +20,23 @@ export function fetchOrganisms() {
 }
 
 export function fetchData(params) {
-  console.log('Params: ', params)
+  
   const url = `${rootURL}/${params.virus}/${params.option}` 
   const request = axios.get(url);
 
     return {
     type: FETCH_DATA,
+    payload: request
+  }
+}
+
+export function fetchCalendar(params) {
+  
+  const url = `${rootURL}/${params.virus}/${params.option}` 
+  const request = axios.get(url);
+
+    return {
+    type: FETCH_CALENDAR,
     payload: request
   }
 }

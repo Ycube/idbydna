@@ -26,9 +26,7 @@ export class Organisms extends Component {
     this.setState({
       option: changeEvent
     })
-    console.log(this.state)
   }
-
 
   handleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault()
