@@ -11,4 +11,4 @@ app.set('port', PORT)
 middleware(app)
 
 app.listen(PORT)
-console.log('App listening on port: ', PORT)
+console.log('Sever listening on port: ', PORT)
