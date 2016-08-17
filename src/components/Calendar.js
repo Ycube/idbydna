@@ -8,6 +8,7 @@ import enUS from 'rc-calendar/lib/locale/en_US';
 import MonthCalendar from 'rc-calendar/lib/MonthCalendar';
 import DatePicker from 'rc-calendar/lib/Picker';
 import { Link } from 'react-router';
+import 'rc-calendar/assets/index.css';
 
 import { fetchCalendar } from '../actions/index'
 import OrganismsForm from './OrganismsForm'
@@ -24,12 +25,12 @@ export class CalendarPicker extends Component {
     super(props)
 
     this.state = { 
-      startValue: null,
-      endValue: null,
+      startDate: null,
+      endDate: null,
       option : ''
     }
     this.onChange = this.onChange.bind(this);
-    // this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   onChange(modifier) {
@@ -46,15 +47,15 @@ export class CalendarPicker extends Component {
     })
   }
 
-  // handleFormSubmit(event) {
-  //   event.preventDefault()
+  handleFormSubmit(e) {
+    e.preventDefault()
 
-  //   this.props.fetchCalendar(this.state)
-  //     .then( (data) => {
-  //       this.setState({ results: data.payload.data })
-  //       }
-  //     )
-  // }
+    this.props.fetchCalendar(this.state)
+      .then( (data) => {
+        this.setState({ results: data.payload.data })
+        }
+      )
+  }
 
   render() {
     const state = this.state;
@@ -68,8 +69,8 @@ export class CalendarPicker extends Component {
         <button className="btn btn-default #e3f2fd blue lighten-5"> 
           <Link to='/'>Back to Home</Link>
         </button>
-        <form>
-        {/*<form onSubmit={this.handleFormSubmit(this)}>*/}
+
+        <form onSubmit={this.handleFormSubmit}>
           <div>
 
 
@@ -84,8 +85,8 @@ export class CalendarPicker extends Component {
               <DatePicker
                 animation="slide-up"
                 calendar={calendar}
-                value={state.startValue}
-                onChange={this.onChange('startValue')}
+                value={state.startDate}
+                onChange={this.onChange('startDate')}
               >
                 {
                   ({ value }) => {
@@ -102,8 +103,8 @@ export class CalendarPicker extends Component {
               <DatePicker
                 animation="slide-up"
                 calendar={calendar}
-                value={state.endValue}
-                onChange={this.onChange('endValue')}
+                value={state.endDate}
+                onChange={this.onChange('endDate')}
               >
                 {
                   ({ value }) => {
