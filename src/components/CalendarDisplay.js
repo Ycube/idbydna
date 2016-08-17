@@ -15,43 +15,65 @@ const CalendarDiplay = (props) => {
   const viralObj = props.data.results.Viral
   const fungalObj = props.data.results.Fungal
 
+  const sortObject = (o) => {
+      let sorted = {},
+      key, a = [];
+
+      for (key in o) {
+          if (o.hasOwnProperty(key)) {
+              a.push(key);
+          }
+      }
+
+      a.sort();
+
+      for (key = 0; key < a.length; key++) {
+          sorted[a[key]] = o[a[key]];
+      }
+      return sorted;
+  }
+
+  let sortedBacterial = sortObject(bacterialObj)
+  let sortedViral = sortObject(viralObj)
+  let sortedFungal = sortObject(fungalObj)
+  
   const countOptions = (object) => {
     for (var name in object) {
       object[name].count = Object.keys(object[name]).length
     }
   }
-  countOptions(bacterialObj)
-  countOptions(viralObj)
-  countOptions(fungalObj)
+  countOptions(sortedBacterial)
+  countOptions(sortedViral)
+  countOptions(sortedFungal)
 
   let bacterialData = []
-  for(var i in bacterialObj) {
+  for(var i in sortedBacterial) {
     bacterialData.push(
       <tr>
         <td>{i}</td>,
-        <td>{bacterialObj[i].count}</td>
+        <td>{sortedBacterial[i].count}</td>
         <td>Bacterial</td>
       </tr>
      )
   }
 
   let viralData = []
-  for(var i in viralObj) {
+  for(var i in sortedViral) {
     viralData.push(
       <tr>
         <td>{i}</td>,
-        <td>{viralObj[i].count}</td>
+        <td>{sortedViral[i].count}</td>
         <td>Viral</td>
       </tr>
      )
   }
 
   let fungalData = [];
-  for(var i in fungalObj) {
+  for(var i in sortedFungal) {
     fungalData.push(
       <tr>
         <td>{i}</td>,
-        <td>{fungalObj[i].count}</td>
+        <td>{sortedFungal[i].count}</td>
         <td>Fungal</td>
       </tr>
      )
