@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import axios from 'axios';
 import Select from 'react-select';
+import { Link } from 'react-router';
+
 import { fetchOrganisms, fetchData } from '../actions/index'
 import DisplayWindow from './DisplayWindow'
 import OptionButton from './OptionButton'
@@ -55,6 +57,9 @@ export class Organisms extends Component {
     
     return(
       <div>
+        <Link to="calendar" className="btn btn-primary">
+          Find By Calendar
+        </Link>
         <form onSubmit={this.handleFormSubmit.bind(this)}>
           <Select
               value={this.state.virus}

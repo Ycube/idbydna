@@ -7,6 +7,7 @@ import moment from 'moment';
 import enUS from 'rc-calendar/lib/locale/en_US';
 import MonthCalendar from 'rc-calendar/lib/MonthCalendar';
 import DatePicker from 'rc-calendar/lib/Picker';
+import { Link } from 'react-router';
 
 import { fetchCalendar } from '../actions/index'
 import OrganismsForm from './OrganismsForm'
@@ -63,8 +64,10 @@ export class CalendarPicker extends Component {
     />);   
     return (
 
-      <div>   
-        <h2> Calendar "Page" </h2>
+      <div>  
+        <button className="btn btn-default #e3f2fd blue lighten-5"> 
+          <Link to='/'>Back to Home</Link>
+        </button>
         <form>
         {/*<form onSubmit={this.handleFormSubmit(this)}>*/}
           <div>
