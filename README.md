@@ -12,3 +12,4 @@
 
 ### Todo
 - Calendar backend routes
+  -See notes in Routes.js
