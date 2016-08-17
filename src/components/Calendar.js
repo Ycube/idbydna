@@ -7,6 +7,7 @@ import moment from 'moment';
 import enUS from 'rc-calendar/lib/locale/en_US';
 import MonthCalendar from 'rc-calendar/lib/MonthCalendar';
 import DatePicker from 'rc-calendar/lib/Picker';
+// import 'rc-calendar/assets/index.css';
 
 import { fetchOrganisms, fetchData } from '../actions/index'
 import OrganismsForm from './OrganismsForm'
@@ -23,32 +24,24 @@ export class CalendarPicker extends Component {
     super(props)
 
     this.state = { 
-      startValue: this.props.defaultValue,
-      endValue: this.props.defaultValue 
+      startValue: null,
+      endValue: null
     }
-
-    this.onChangeStart = this.onChangeStart.bind(this)
-    this.onChangeEnd = this.onChangeEnd.bind(this)
+    this.onChange = this.onChange.bind(this);
   }
 
-  onChangeStart(value) {
-    console.log(`DatePicker change: ${value && value.format(format)}`)
-    const test = `${value && value.format(format)}`;
-    this.setState({
-      startValue : test
-    })
-    console.log('TEST: ', test)
-    console.log('STATE: ', this.state)
+  onChange(modifier) {
+    return (value) => {
+      // console.log(`DatePicker change: ${value && value.format(format)}`);
+      this.setState({
+        [modifier]: value
+      });
+    }
   }
-  
-  onChangeEnd(value) {
-    console.log(`DatePicker change: ${value && value.format(format)}`)
-    this.setState({
-      endValue : value
-    })
-  }
+
   render() {
     const state = this.state;
+
     const calendar = (<MonthCalendar
       locale={enUS}
       style={{ zIndex: 1000 }}
@@ -72,7 +65,7 @@ export class CalendarPicker extends Component {
               animation="slide-up"
               calendar={calendar}
               value={state.startValue}
-              onChange={this.onChangeStart}
+              onChange={this.onChange('startValue')}
             >
               {
                 ({ value }) => {
@@ -90,7 +83,7 @@ export class CalendarPicker extends Component {
               animation="slide-up"
               calendar={calendar}
               value={state.endValue}
-              onChange={this.onChangeEnd}
+              onChange={this.onChange('endValue')}
             >
               {
                 ({ value }) => {

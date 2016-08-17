@@ -5,6 +5,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import { fetchOrganisms, fetchData } from '../actions/index'
 import DisplayWindow from './DisplayWindow'
+import OptionButton from './OptionButton'
 
 export class Organisms extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export class Organisms extends Component {
     this.setState({
       option: changeEvent
     })
+    console.log(this.state)
   }
 
 
@@ -65,19 +67,20 @@ export class Organisms extends Component {
             <input 
               type="radio"
               value="Positive"
+              id="Positive"
               checked={this.state.option === "Positive"}
               onChange={this.handleOptionChange.bind(this, 'Positive')}
-            /> 
-            <label>Positive</label>
-          
-
+            />
+            <label htmlFor="Positive">Positive</label>
+         
             <input 
               type="radio"
               value="Negative"
+              id="Negative"
               checked={this.state.option === "Negative"}
               onChange={this.handleOptionChange.bind(this, 'Negative')}
             /> 
-            <label>Negative</label>
+            <label htmlFor="Negative">Negative</label>
 
             <button className="btn btn-default" type="submit">Submit</button>
         </form>
