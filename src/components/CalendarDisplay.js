@@ -1,10 +1,61 @@
 import React from 'react'
 
-const CalendarDiplay = (prop) => {
+const CalendarDiplay = (props) => {
   
-  // do some spread operator on porps
-  console.log('props', prop)
-  const option = 'Positive'
+  // console.log(props.data.results)
+  if(!props.data.results){
+    return (
+      <div>
+        <h5>Input Dates</h5>
+      </div>
+    )
+  }
+
+  const bacterialObj = props.data.results.Bacterial
+  const viralObj = props.data.results.Viral
+  const fungalObj = props.data.results.Fungal
+
+  const countOptions = (object) => {
+    for (var name in object) {
+      object[name].count = Object.keys(object[name]).length
+    }
+  }
+  countOptions(bacterialObj)
+  countOptions(viralObj)
+  countOptions(fungalObj)
+
+  let bacterialData = []
+  for(var i in bacterialObj) {
+    bacterialData.push(
+      <tr>
+        <td>{i}</td>,
+        <td>{bacterialObj[i].count}</td>
+        <td>Bacterial</td>
+      </tr>
+     )
+  }
+
+  let viralData = []
+  for(var i in viralObj) {
+    viralData.push(
+      <tr>
+        <td>{i}</td>,
+        <td>{viralObj[i].count}</td>
+        <td>Viral</td>
+      </tr>
+     )
+  }
+
+  let fungalData = [];
+  for(var i in fungalObj) {
+    fungalData.push(
+      <tr>
+        <td>{i}</td>,
+        <td>{fungalObj[i].count}</td>
+        <td>Fungal</td>
+      </tr>
+     )
+  }  
 
   return (
     <div>
@@ -12,27 +63,15 @@ const CalendarDiplay = (prop) => {
         <thead>
           <tr>
               <th data-field="id">Organism Name</th>
+              <th data-field="price"># of {props.data.option}</th>
               <th data-field="name">Class</th>
-              <th data-field="price">Count</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>Metapneumovirus</td>
-            <td>Viral</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Legionella pneumophila</td>
-            <td>Bacterial</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Pneumocystis jirovecii</td>
-            <td>Fungal</td>
-            <td>2</td>
-          </tr>
+          {viralData}          
+          {bacterialData}
+          {fungalData}
         </tbody>
       </table>
 
