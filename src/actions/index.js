@@ -32,7 +32,7 @@ export function fetchData(params) {
 
 export function fetchCalendar(params) {
   
-  const url = `${rootURL}/?=${startDate}&${endDate}&${option}` 
+  const url = `${rootURL}/calendar?startDate=${params.startDate}&endDate=${params.endDate}&option=${params.option}` 
   const request = axios.get(url);
 
     return {

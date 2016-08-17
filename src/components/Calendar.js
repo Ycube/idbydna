@@ -1,24 +1,26 @@
+import 'rc-calendar/assets/index.css';
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Calendar from 'rc-calendar'
+import { Link } from 'react-router';
 import axios from 'axios';
+
+import Calendar from 'rc-calendar'
 import moment from 'moment';
 import enUS from 'rc-calendar/lib/locale/en_US';
 import MonthCalendar from 'rc-calendar/lib/MonthCalendar';
 import DatePicker from 'rc-calendar/lib/Picker';
-import { Link } from 'react-router';
-import 'rc-calendar/assets/index.css';
 
 import { fetchCalendar } from '../actions/index'
 import OrganismsForm from './OrganismsForm'
-import DisplayWindow from './DisplayWindow'
+import CalendarDisplay from './CalendarDisplay'
 
 const format = 'MM-YYYY';
 const now = moment()
 now.locale('en-gb').utcOffset(0)
 const defaultCalendarValue = now.clone()
-defaultCalendarValue.add(-1, 'month')
+// defaultCalendarValue.add(-1, 'month')
+defaultCalendarValue.add(-1, 'year')
 
 export class CalendarPicker extends Component {
     constructor(props) {
@@ -49,8 +51,13 @@ export class CalendarPicker extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault()
+    const params = {
+      startDate: this.state.startDate.format(format),
+      endDate: this.state.startDate.format(format),
+      option: this.state.option
+    };
 
-    this.props.fetchCalendar(this.state)
+    this.props.fetchCalendar(params)
       .then( (data) => {
         this.setState({ results: data.payload.data })
         }
@@ -59,10 +66,14 @@ export class CalendarPicker extends Component {
 
   render() {
     const state = this.state;
-    const calendar = (<MonthCalendar
-      locale={enUS}
-      style={{ zIndex: 1000 }}
-    />);   
+    const calendar = (
+      <MonthCalendar
+        locale={enUS}
+        style={{ zIndex: 1000 }}
+        defaultValue={defaultCalendarValue}
+      />
+    );   
+
     return (
 
       <div>  
@@ -143,8 +154,7 @@ export class CalendarPicker extends Component {
           <button className="btn btn-default" type="submit">Submit</button>
         </form>
 
-
-        <DisplayWindow props={this.state} />
+        <CalendarDisplay data={this.state}/>
       </div>
     )
   }
