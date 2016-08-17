@@ -1,4 +1,4 @@
-import { FETCH_ORGANISMS, FETCH_DATA } from '../actions';
+import { FETCH_ORGANISMS, FETCH_DATA, FETCH_CALENDAR } from '../actions';
 
 const initialState = {
 }

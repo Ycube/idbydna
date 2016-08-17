@@ -18,7 +18,6 @@ const DisplayWindow = (props) => {
   let trData = [];
   if (results) {
     result = flatten(results)
-    console.log(result)
     result.map((obj) => {
       trData.push(
         <tr>
@@ -32,7 +31,6 @@ const DisplayWindow = (props) => {
 
   }
 
-  //no data comes back
   if (result.length === 0) {
     return (
       <div>

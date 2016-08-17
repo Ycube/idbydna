@@ -32,7 +32,7 @@ export function fetchData(params) {
 
 export function fetchCalendar(params) {
   
-  const url = `${rootURL}/${params.virus}/${params.option}` 
+  const url = `${rootURL}/?=${startDate}&${endDate}&${option}` 
   const request = axios.get(url);
 
     return {
